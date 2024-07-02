@@ -1,0 +1,64 @@
+name: micro_rental_project
+description: "A new Flutter project."
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.6 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  mailer: ^6.1.0
+  fluttertoast: ^8.2.6
+  flutter_dotenv: ^5.0.3
+  google_maps_flutter: ^2.7.0
+  geolocator: ^12.0.0
+  geocoding: ^3.0.0
+  google_nav_bar: ^5.0.6
+  image_picker: ^1.1.2
+  awesome_dialog: ^3.2.1
+  permission_handler: ^11.3.1
+  firebase_core: ^3.1.0
+  firebase_auth: ^5.1.0
+  cloud_firestore: ^5.0.1
+  firebase_storage: ^12.0.1
+  firebase_messaging: ^15.0.1
+  icons_plus: ^5.0.0
+  intl: ^0.19.0
+  url_launcher: ^6.3.0
+  carousel_slider: ^4.2.1
+  provider: ^6.0.4
+
+dev_dependencies:
+  flutter_launcher_icons: "^0.13.1"
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "images/—Pngtree—real estate house logo graphic_3732283.png"
+  min_sdk_android: 21
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - images/Screenshot 2024-04-14 053956.png
+    - images/Screenshot 2024-04-16 005811.png
+
+  # For adding custom fonts, uncomment and configure the below section
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
