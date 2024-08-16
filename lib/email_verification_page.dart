@@ -49,45 +49,90 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Email Verification'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: double.infinity,
-                height: 200,
-                child: Image.asset(
-                  'images/Screenshot 2024-04-16 005811.png',
-                  fit: BoxFit.cover,
-                ),
-              ),
-              const SizedBox(height: 75),
-              const Padding(
-                padding: EdgeInsets.only(right: 40.0),
-                child: Text(
-                  'VERIFY THROUGH EMAIL',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10),
-              _buildEmailTextField(),
-              const SizedBox(height: 20),
-              _buildVerificationCodeRow(),
-              if (_isSendingCode) const SizedBox(height: 10),
-              _buildSendingCodeText(),
-              const SizedBox(height: 20),
-              _buildVerifyButton(),
-              _buildVerificationSuccessText(),
-              const SizedBox(height: 100),
-              _buildNextButton(),
+      body: Container(
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFF0D47A1),
+              Color(0xFF1976D2),
+              Color(0xFF42A5F5),
             ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 30),
+                  const Text(
+                    'VERIFY THROUGH EMAIL',
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Hind Jalandhar',
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 50),
+                  Card(
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        children: [
+                          _buildEmailTextField(),
+                          const SizedBox(height: 20),
+                          _buildVerificationCodeRow(),
+                          if (_isSendingCode) const SizedBox(height: 10),
+                          _buildSendingCodeText(),
+                          const SizedBox(height: 20),
+                          _buildVerifyButton(),
+                          _buildVerificationSuccessText(),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_isVerified && _verificationCodeError == null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                SignUpPage(email: _emailController.text),
+                          ),
+                        );
+                      } else {
+                        _showToast("Please verify your email first");
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF315EE7),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      textStyle: const TextStyle(
+                        fontFamily: 'Hind',
+                        fontSize: 18,
+                      ),
+                      minimumSize: const Size(double.infinity, 50),
+                    ),
+                    child: const Text('Next'),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),
@@ -214,36 +259,6 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildNextButton() {
-    return ElevatedButton(
-      onPressed: () {
-        if (_isVerified && _verificationCodeError == null) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SignUpPage(email: _emailController.text),
-            ),
-          );
-        } else {
-          _showToast("Please verify your email first");
-        }
-      },
-      style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xFF315EE7),
-        foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        textStyle: const TextStyle(
-          fontFamily: 'Hind',
-          fontSize: 18,
-        ),
-        minimumSize: const Size(double.infinity, 50),
-      ),
-      child: const Text('Next'),
     );
   }
 

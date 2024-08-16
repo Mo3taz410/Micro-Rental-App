@@ -127,217 +127,245 @@ class _SignUpPageState extends State<SignUpPage> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Sign Up'),
-        ),
-        body: SingleChildScrollView(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Form(
-                key: formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Congratulations',
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Hind Jalandhar',
-                        color: Color(0xFF22215B),
-                      ),
-                    ),
-                    const Text(
-                      'on verifying the email belongs to you',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'Hind Jalandhar',
-                        color: Color(0xFF22215B),
-                      ),
-                    ),
-                    const SizedBox(height: 50),
-                    const Text(
-                      'Sign up',
-                      style: TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Hind Jalandhar',
-                        color: Color(0xFF22215B),
-                      ),
-                    ),
-                    const Text(
-                      'We need something more',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'Hind Jalandhar',
-                        color: Color(0xFF22215B),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    GestureDetector(
-                      onTap: _pickProfileImage,
-                      child: CircleAvatar(
-                        radius: 50,
-                        backgroundImage: _profileImage != null
-                            ? FileImage(_profileImage!)
-                            : null,
-                        child: _profileImage == null
-                            ? const Icon(Icons.person, size: 50)
-                            : null,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    TextButton(
-                      onPressed: _pickProfileImage,
-                      child: const Text('Select Profile Image'),
-                    ),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      controller: nameController,
-                      keyboardType: TextInputType.name,
-                      decoration: const InputDecoration(
-                        labelText: 'Name',
-                        border: OutlineInputBorder(),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your name';
-                        }
-                        return null;
-                      },
-                      style: const TextStyle(
-                        fontFamily: 'Hind Jalandhar',
-                        color: Color(0xFF22215B),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      controller: emailController,
-                      readOnly: true,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: const InputDecoration(
-                        labelText: 'Email',
-                        border: OutlineInputBorder(),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your email';
-                        } else if (!_isValidEmail(value)) {
-                          return 'Please enter a valid email address';
-                        }
-                        return null;
-                      },
-                      style: const TextStyle(
-                        fontFamily: 'Hind Jalandhar',
-                        color: Color(0xFF22215B),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      controller: passwordController,
-                      keyboardType: TextInputType.visiblePassword,
-                      obscureText: !_passwordVisible,
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                        border: const OutlineInputBorder(),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _passwordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _passwordVisible = !_passwordVisible;
-                            });
-                          },
+        body: Container(
+          width: double.infinity,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF0D47A1),
+                Color(0xFF1976D2),
+                Color(0xFF42A5F5),
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Center(
+              child: SingleChildScrollView(
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 30),
+                      const Text(
+                        'Congratulations',
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Hind Jalandhar',
+                          color: Colors.white,
                         ),
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter a password';
-                        }
-                        return null;
-                      },
-                      style: const TextStyle(
-                        fontFamily: 'Hind Jalandhar',
-                        color: Color(0xFF22215B),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      controller: confirmPasswordController,
-                      keyboardType: TextInputType.visiblePassword,
-                      obscureText: !_confirmPasswordVisible,
-                      decoration: InputDecoration(
-                        labelText: 'Confirm Password',
-                        border: const OutlineInputBorder(),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _confirmPasswordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _confirmPasswordVisible =
-                                  !_confirmPasswordVisible;
-                            });
-                          },
+                      const SizedBox(height: 10),
+                      const Text(
+                        'on verifying the email belongs to you',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'Hind Jalandhar',
+                          color: Colors.white70,
                         ),
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please confirm your password';
-                        } else if (value != passwordController.text) {
-                          return 'Passwords do not match';
-                        }
-                        return null;
-                      },
-                      style: const TextStyle(
-                        fontFamily: 'Hind Jalandhar',
-                        color: Color(0xFF22215B),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      controller: bioController,
-                      keyboardType: TextInputType.multiline,
-                      maxLines: 3,
-                      decoration: const InputDecoration(
-                        labelText: 'Bio',
-                        border: OutlineInputBorder(),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter a bio';
-                        } // kjhnkjhjbghjvfhg
-                        return null;
-                      },
-                      style: const TextStyle(
-                        fontFamily: 'Hind Jalandhar',
-                        color: Color(0xFF22215B),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: _signUp,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF315EE7),
-                        foregroundColor: Colors.white,
-                        textStyle: const TextStyle(
-                          fontFamily: 'Hind',
-                          fontSize: 18,
+                      const SizedBox(height: 50),
+                      const Text(
+                        'Sign up',
+                        style: TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Hind Jalandhar',
+                          color: Colors.white,
                         ),
-                        minimumSize: const Size(double.infinity, 50),
+                      ),
+                      const Text(
+                        'We need something more',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'Hind Jalandhar',
+                          color: Colors.white70,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      GestureDetector(
+                        onTap: _pickProfileImage,
+                        child: CircleAvatar(
+                          radius: 50,
+                          backgroundImage: _profileImage != null
+                              ? FileImage(_profileImage!)
+                              : null,
+                          child: _profileImage == null
+                              ? const Icon(Icons.person,
+                                  size: 50, color: Colors.white)
+                              : null,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      TextButton(
+                        onPressed: _pickProfileImage,
+                        child: const Text('Select Profile Image',
+                            style: TextStyle(color: Colors.white)),
+                      ),
+                      const SizedBox(height: 20),
+                      Card(
+                        elevation: 5,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            children: [
+                              TextFormField(
+                                controller: nameController,
+                                keyboardType: TextInputType.name,
+                                decoration: const InputDecoration(
+                                  labelText: 'Name',
+                                  border: OutlineInputBorder(),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter your name';
+                                  }
+                                  return null;
+                                },
+                                style: const TextStyle(
+                                  fontFamily: 'Hind Jalandhar',
+                                  color: Color(0xFF22215B),
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              TextFormField(
+                                controller: emailController,
+                                readOnly: true,
+                                keyboardType: TextInputType.emailAddress,
+                                decoration: const InputDecoration(
+                                  labelText: 'Email',
+                                  border: OutlineInputBorder(),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter your email';
+                                  } else if (!_isValidEmail(value)) {
+                                    return 'Please enter a valid email address';
+                                  }
+                                  return null;
+                                },
+                                style: const TextStyle(
+                                  fontFamily: 'Hind Jalandhar',
+                                  color: Color(0xFF22215B),
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              TextFormField(
+                                controller: passwordController,
+                                keyboardType: TextInputType.visiblePassword,
+                                obscureText: !_passwordVisible,
+                                decoration: InputDecoration(
+                                  labelText: 'Password',
+                                  border: const OutlineInputBorder(),
+                                  suffixIcon: IconButton(
+                                    icon: Icon(
+                                      _passwordVisible
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _passwordVisible = !_passwordVisible;
+                                      });
+                                    },
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter a password';
+                                  }
+                                  return null;
+                                },
+                                style: const TextStyle(
+                                  fontFamily: 'Hind Jalandhar',
+                                  color: Color(0xFF22215B),
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              TextFormField(
+                                controller: confirmPasswordController,
+                                keyboardType: TextInputType.visiblePassword,
+                                obscureText: !_confirmPasswordVisible,
+                                decoration: InputDecoration(
+                                  labelText: 'Confirm Password',
+                                  border: const OutlineInputBorder(),
+                                  suffixIcon: IconButton(
+                                    icon: Icon(
+                                      _confirmPasswordVisible
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _confirmPasswordVisible =
+                                            !_confirmPasswordVisible;
+                                      });
+                                    },
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please confirm your password';
+                                  } else if (value != passwordController.text) {
+                                    return 'Passwords do not match';
+                                  }
+                                  return null;
+                                },
+                                style: const TextStyle(
+                                  fontFamily: 'Hind Jalandhar',
+                                  color: Color(0xFF22215B),
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              TextFormField(
+                                controller: bioController,
+                                keyboardType: TextInputType.multiline,
+                                maxLines: 3,
+                                decoration: const InputDecoration(
+                                  labelText: 'Bio',
+                                  border: OutlineInputBorder(),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter a bio';
+                                  }
+                                  return null;
+                                },
+                                style: const TextStyle(
+                                  fontFamily: 'Hind Jalandhar',
+                                  color: Color(0xFF22215B),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      child: const Text('Submit'),
-                    ),
-                  ],
+                      const SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: _signUp,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF315EE7),
+                          foregroundColor: Colors.white,
+                          textStyle: const TextStyle(
+                            fontFamily: 'Hind',
+                            fontSize: 18,
+                          ),
+                          minimumSize: const Size(double.infinity, 50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: const Text('Submit'),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -52,7 +52,6 @@ class _DashboardState extends State<Dashboard>
   final TextEditingController _propertyDescriptionController =
       TextEditingController();
   final TextEditingController _priceController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _searchController = TextEditingController();
 
   @override
@@ -233,8 +232,15 @@ class _DashboardState extends State<Dashboard>
                       child: Container(
                         margin: const EdgeInsets.symmetric(horizontal: 10),
                         decoration: BoxDecoration(
-                          color: Colors.lightBlueAccent,
-                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white, // Light gray color
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              spreadRadius: 2,
+                              blurRadius: 5,
+                            ),
+                          ],
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -243,8 +249,8 @@ class _DashboardState extends State<Dashboard>
                               children: [
                                 ClipRRect(
                                   borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(10),
-                                    topRight: Radius.circular(10),
+                                    topLeft: Radius.circular(15),
+                                    topRight: Radius.circular(15),
                                   ),
                                   child: property.images.isNotEmpty
                                       ? Image.network(
@@ -318,6 +324,7 @@ class _DashboardState extends State<Dashboard>
                                     : 'Price not available',
                                 style: const TextStyle(
                                   fontSize: 14,
+                                  color: Color(0xFF7D7F88), // Neutral color
                                 ),
                               ),
                             ),
@@ -328,6 +335,7 @@ class _DashboardState extends State<Dashboard>
                                 property.ownerName,
                                 style: const TextStyle(
                                   fontSize: 14,
+                                  color: Color(0xFF7D7F88), // Neutral color
                                 ),
                               ),
                             ),
@@ -600,7 +608,6 @@ class _DashboardState extends State<Dashboard>
       _propertyNameController.clear();
       _propertyDescriptionController.clear();
       _priceController.clear();
-      _passwordController.clear();
       if (mounted) {
         setState(() {
           _selectedImages.clear();
@@ -625,7 +632,11 @@ class _DashboardState extends State<Dashboard>
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Dashboard'),
+          title: const Text(
+            'Dashboard',
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: const Color(0xFF0A4DA0),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(50),
             child: Padding(
@@ -642,7 +653,15 @@ class _DashboardState extends State<Dashboard>
                         }
                       },
                       child: Container(
-                        color: _isRenter ? Colors.blue : Colors.transparent,
+                        decoration: BoxDecoration(
+                          color: _isRenter
+                              ? const Color(0xFF1976D2)
+                              : Colors.transparent,
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                          ),
+                        ),
                         child: const Center(
                           child: Padding(
                             padding: EdgeInsets.symmetric(vertical: 12),
@@ -651,6 +670,7 @@ class _DashboardState extends State<Dashboard>
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
+                                fontFamily: 'Hind',
                               ),
                             ),
                           ),
@@ -668,7 +688,15 @@ class _DashboardState extends State<Dashboard>
                         }
                       },
                       child: Container(
-                        color: !_isRenter ? Colors.blue : Colors.transparent,
+                        decoration: BoxDecoration(
+                          color: !_isRenter
+                              ? const Color(0xFF1976D2)
+                              : Colors.transparent,
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                          ),
+                        ),
                         child: const Center(
                           child: Padding(
                             padding: EdgeInsets.symmetric(vertical: 12),
@@ -677,6 +705,7 @@ class _DashboardState extends State<Dashboard>
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
+                                fontFamily: 'Hind',
                               ),
                             ),
                           ),
@@ -746,10 +775,10 @@ class _DashboardState extends State<Dashboard>
           ),
         ),
         bottomNavigationBar: GNav(
-          backgroundColor: Colors.white,
-          color: Colors.black,
-          activeColor: Colors.lightBlueAccent,
-          tabBackgroundColor: Colors.grey.shade800,
+          backgroundColor: const Color(0xFF0A4DA0),
+          color: Colors.white70,
+          activeColor: Colors.white,
+          tabBackgroundColor: const Color(0xFF1976D2),
           iconSize: 24,
           padding: const EdgeInsets.fromLTRB(18, 18, 10, 18),
           gap: 8,

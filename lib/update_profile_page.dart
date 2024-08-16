@@ -84,24 +84,44 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Update Profile'),
-      ),
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: SingleChildScrollView(
-                child: Column(
+      body: Container(
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFF0D47A1),
+              Color(0xFF1976D2),
+              Color(0xFF42A5F5),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: SafeArea(
+          child: _isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : Column(
                   children: [
-                    const SizedBox(height: 20),
-                    _buildProfileCard(),
-                    const SizedBox(height: 20),
-                    _buildUpdateButton(),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const SizedBox(height: 30),
+                              _buildProfileCard(),
+                              const SizedBox(height: 30),
+                              _buildUpdateButton(),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
-              ),
-            ),
+        ),
+      ),
     );
   }
 
@@ -111,6 +131,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         borderRadius: BorderRadius.circular(15.0),
       ),
       elevation: 5,
+      color: Colors.white,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -130,13 +151,21 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
             ),
             TextButton(
               onPressed: _pickProfileImage,
-              child: const Text('Select Profile Image'),
+              child: const Text(
+                'Select Profile Image',
+                style: TextStyle(
+                  color: Color(0xFF1976D2),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
+            const SizedBox(
+                height: 20), // Add space between image and text fields
             _buildTextField(
               controller: nameController,
               label: 'Name',
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
             _buildTextField(
               controller: bioController,
               label: 'Bio',
@@ -158,8 +187,14 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
       controller: controller,
       decoration: InputDecoration(
         labelText: label,
+        labelStyle: const TextStyle(color: Color(0xFF1976D2)),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: Color(0xFF1976D2)),
+        ),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Color(0xFF1976D2)),
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
         ),
       ),
       maxLines: maxLines,
@@ -171,7 +206,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     return ElevatedButton(
       onPressed: _updateUserProfile,
       style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xFF315EE7),
+        backgroundColor: const Color(0xFF0D47A1),
         foregroundColor: Colors.white,
         textStyle: const TextStyle(
           fontFamily: 'Hind',

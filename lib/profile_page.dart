@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart'; // Import Font Awesome
 import 'models/app_user.dart';
 import 'login_page.dart';
 import 'update_profile_page.dart';
@@ -26,51 +27,110 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Profile'),
-      ),
-      body: user == null
-          ? const Center(child: Text('No user logged in'))
-          : StreamBuilder<DocumentSnapshot>(
-              stream: FirebaseFirestore.instance
-                  .collection('users')
-                  .doc(user!.uid)
-                  .snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
-                }
-                if (!snapshot.hasData || !snapshot.data!.exists) {
-                  return const Center(child: Text('User data not found'));
-                }
-
-                var userData = snapshot.data!.data() as Map<String, dynamic>;
-                var appUser = AppUser.fromMap(snapshot.data!.id, userData);
-
-                return Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        _buildProfileCard(appUser),
-                        const SizedBox(height: 20),
-                        _buildActionButtons(appUser),
-                      ],
-                    ),
+      body: Container(
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFF0D47A1),
+              Color(0xFF1976D2),
+              Color(0xFF42A5F5),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: SafeArea(
+          child: Column(
+            children: [
+              AppBar(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                title: const Text(
+                  'Profile',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Hind Jalandhar',
                   ),
-                );
-              },
-            ),
+                ),
+                centerTitle: true,
+              ),
+              Expanded(
+                child: user == null
+                    ? const Center(
+                        child: Text(
+                          'No user logged in',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontFamily: 'Hind Jalandhar',
+                          ),
+                        ),
+                      )
+                    : StreamBuilder<DocumentSnapshot>(
+                        stream: FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(user!.uid)
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          if (snapshot.hasError) {
+                            return Center(
+                              child: Text(
+                                'Error: ${snapshot.error}',
+                                style: const TextStyle(color: Colors.red),
+                              ),
+                            );
+                          }
+                          if (!snapshot.hasData || !snapshot.data!.exists) {
+                            return const Center(
+                              child: Text(
+                                'User data not found',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontFamily: 'Hind Jalandhar',
+                                ),
+                              ),
+                            );
+                          }
+
+                          var userData =
+                              snapshot.data!.data() as Map<String, dynamic>;
+                          var appUser =
+                              AppUser.fromMap(snapshot.data!.id, userData);
+
+                          return Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  _buildProfileCard(appUser),
+                                  const SizedBox(height: 20),
+                                  _buildActionButtons(appUser),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+              ),
+            ],
+          ),
+        ),
+      ),
       bottomNavigationBar: GNav(
-        backgroundColor: Colors.white,
-        color: Colors.black,
-        activeColor: Colors.lightBlueAccent,
-        tabBackgroundColor: Colors.grey.shade800,
+        backgroundColor: const Color(0xFF0A4DA0), // Updated to match the design
+        color: Colors.white70,
+        activeColor: Colors.white,
+        tabBackgroundColor: const Color(0xFF1976D2),
         iconSize: 24,
         padding: const EdgeInsets.fromLTRB(18, 18, 10, 18),
         gap: 8,
@@ -134,6 +194,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget _buildProfileCard(AppUser appUser) {
     return Card(
+      color: const Color(0xFFF5F5F5), // Light gray color for the card
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
       ),
@@ -159,6 +220,8 @@ class _ProfilePageState extends State<ProfilePage> {
               style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
+                fontFamily: 'Hind Jalandhar',
+                color: Color(0xFF22215B),
               ),
             ),
             const SizedBox(height: 10),
@@ -167,6 +230,7 @@ class _ProfilePageState extends State<ProfilePage> {
               style: const TextStyle(
                 fontSize: 16,
                 color: Colors.grey,
+                fontFamily: 'Hind Jalandhar',
               ),
             ),
             const SizedBox(height: 10),
@@ -175,6 +239,7 @@ class _ProfilePageState extends State<ProfilePage> {
               style: const TextStyle(
                 fontSize: 16,
                 color: Colors.grey,
+                fontFamily: 'Hind Jalandhar',
               ),
             ),
           ],
@@ -190,7 +255,7 @@ class _ProfilePageState extends State<ProfilePage> {
       children: [
         SizedBox(
           width: double.infinity,
-          child: ElevatedButton(
+          child: ElevatedButton.icon(
             onPressed: () {
               Navigator.push(
                 context,
@@ -199,46 +264,75 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               );
             },
+            icon: const FaIcon(
+              FontAwesomeIcons.userEdit,
+              size: 18, // Adjust size for better alignment
+            ),
+            label: const Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: Text(
+                'Update your Information',
+                style: TextStyle(
+                  fontFamily: 'Hind Jalandhar',
+                  fontSize: 16, // Adjust font size for consistency
+                ),
+              ),
+            ),
             style: ElevatedButton.styleFrom(
+              alignment:
+                  Alignment.centerLeft, // Align content to the center left
+              padding: const EdgeInsets.symmetric(
+                  vertical: 15, horizontal: 20), // Adjust padding
               foregroundColor: Colors.white,
-              backgroundColor: Colors.blue,
+              backgroundColor: const Color(0xFF0D47A1), // Dark blue for buttons
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
-            ),
-            child: const Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              child: Text('Update your Information'),
             ),
           ),
         ),
         const SizedBox(height: 20),
         SizedBox(
           width: double.infinity,
-          child: ElevatedButton(
+          child: ElevatedButton.icon(
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const ContactUsPage()),
               );
             },
+            icon: const FaIcon(
+              FontAwesomeIcons.phone,
+              size: 18, // Adjust size for better alignment
+            ),
+            label: const Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: Text(
+                'Contact Us',
+                style: TextStyle(
+                  fontFamily: 'Hind Jalandhar',
+                  fontSize: 16, // Adjust font size for consistency
+                ),
+              ),
+            ),
             style: ElevatedButton.styleFrom(
+              alignment:
+                  Alignment.centerLeft, // Align content to the center left
+              padding: const EdgeInsets.symmetric(
+                  vertical: 15, horizontal: 20), // Adjust padding
               foregroundColor: Colors.white,
-              backgroundColor: Colors.green,
+              backgroundColor:
+                  const Color(0xFF1B5E20), // Dark green for consistency
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
-            ),
-            child: const Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              child: Text('Contact Us'),
             ),
           ),
         ),
         const SizedBox(height: 20),
         SizedBox(
           width: double.infinity,
-          child: ElevatedButton(
+          child: ElevatedButton.icon(
             onPressed: () {
               Navigator.push(
                 context,
@@ -247,23 +341,38 @@ class _ProfilePageState extends State<ProfilePage> {
                         YourPropertiesPage(userId: user!.uid)),
               );
             },
+            icon: const FaIcon(
+              FontAwesomeIcons.home,
+              size: 18, // Adjust size for better alignment
+            ),
+            label: const Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: Text(
+                'Your Properties',
+                style: TextStyle(
+                  fontFamily: 'Hind Jalandhar',
+                  fontSize: 16, // Adjust font size for consistency
+                ),
+              ),
+            ),
             style: ElevatedButton.styleFrom(
+              alignment:
+                  Alignment.centerLeft, // Align content to the center left
+              padding: const EdgeInsets.symmetric(
+                  vertical: 15, horizontal: 20), // Adjust padding
               foregroundColor: Colors.white,
-              backgroundColor: Colors.blue,
+              backgroundColor:
+                  const Color(0xFF0D47A1), // Dark blue for consistency
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
-            ),
-            child: const Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              child: Text('Your Properties'),
             ),
           ),
         ),
         const SizedBox(height: 20),
         SizedBox(
           width: double.infinity,
-          child: ElevatedButton(
+          child: ElevatedButton.icon(
             onPressed: () {
               AwesomeDialog(
                 context: context,
@@ -281,16 +390,31 @@ class _ProfilePageState extends State<ProfilePage> {
                 },
               ).show();
             },
+            icon: const FaIcon(
+              FontAwesomeIcons.signOutAlt,
+              size: 18, // Adjust size for better alignment
+            ),
+            label: const Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: Text(
+                'Log Out',
+                style: TextStyle(
+                  fontFamily: 'Hind Jalandhar',
+                  fontSize: 16, // Adjust font size for consistency
+                ),
+              ),
+            ),
             style: ElevatedButton.styleFrom(
+              alignment:
+                  Alignment.centerLeft, // Align content to the center left
+              padding: const EdgeInsets.symmetric(
+                  vertical: 15, horizontal: 20), // Adjust padding
               foregroundColor: Colors.white,
-              backgroundColor: Colors.red,
+              backgroundColor:
+                  const Color(0xFFC62828), // Dark red for Log Out button
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
-            ),
-            child: const Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              child: Text('Log Out'),
             ),
           ),
         ),

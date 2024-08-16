@@ -10,7 +10,6 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
-
   @override
   _ChatPageState createState() => _ChatPageState();
 }
@@ -68,24 +67,59 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Chat'),
-      ),
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : _users.isEmpty
-              ? const Center(
-                  child: Text(
-                    'No chats available.',
+      body: Container(
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFF0D47A1),
+              Color(0xFF1976D2),
+              Color(0xFF42A5F5),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: SafeArea(
+          child: Column(
+            children: [
+              AppBar(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                title: const Text(
+                  'Chat',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Hind Jalandhar',
                   ),
-                )
-              : ListView.builder(
-                  itemCount: _users.length,
-                  itemBuilder: (context, index) {
-                    var user = _users[index];
-                    return _buildUserTile(context, user);
-                  },
                 ),
+                centerTitle: true,
+              ),
+              Expanded(
+                child: _isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : _users.isEmpty
+                        ? const Center(
+                            child: Text(
+                              'No chats available.',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Hind Jalandhar',
+                              ),
+                            ),
+                          )
+                        : ListView.builder(
+                            itemCount: _users.length,
+                            itemBuilder: (context, index) {
+                              var user = _users[index];
+                              return _buildUserTile(context, user);
+                            },
+                          ),
+              ),
+            ],
+          ),
+        ),
+      ),
       bottomNavigationBar: _buildBottomNavBar(),
     );
   }
@@ -102,7 +136,7 @@ class _ChatPageState extends State<ChatPage> {
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        margin: const EdgeInsets.symmetric(vertical: 4),
+        margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
@@ -118,7 +152,7 @@ class _ChatPageState extends State<ChatPage> {
         child: Row(
           children: [
             CircleAvatar(
-              backgroundColor: Colors.blue,
+              backgroundColor: const Color(0xFF0D47A1),
               child: Text(
                 user.name[0].toUpperCase(),
                 style: const TextStyle(
@@ -134,6 +168,8 @@ class _ChatPageState extends State<ChatPage> {
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
+                color: Color(0xFF22215B),
+                fontFamily: 'Hind Jalandhar',
               ),
             ),
           ],
@@ -144,10 +180,10 @@ class _ChatPageState extends State<ChatPage> {
 
   Widget _buildBottomNavBar() {
     return GNav(
-      backgroundColor: Colors.white,
-      color: Colors.black,
-      activeColor: Colors.lightBlueAccent,
-      tabBackgroundColor: Colors.grey.shade800,
+      backgroundColor: const Color(0xFF0A4DA0),
+      color: Colors.white70,
+      activeColor: Colors.white,
+      tabBackgroundColor: const Color(0xFF1976D2),
       iconSize: 24,
       padding: const EdgeInsets.fromLTRB(18, 18, 10, 18),
       gap: 8,

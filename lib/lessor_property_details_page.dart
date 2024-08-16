@@ -54,7 +54,11 @@ class _LessorPropertyDetailsPageState extends State<LessorPropertyDetailsPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.property['name'] ?? 'Property Details'),
+        title: Text(
+          widget.property['name'] ?? 'Property Details',
+          style: const TextStyle(fontFamily: 'Hind'),
+        ),
+        backgroundColor: const Color(0xFF0A4DA0),
         actions: [
           IconButton(
             icon: const Icon(Icons.edit),
@@ -113,49 +117,30 @@ class _LessorPropertyDetailsPageState extends State<LessorPropertyDetailsPage> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    color: Colors.lightBlueAccent,
+                    color:
+                        const Color(0xFFF5F5F5), // Light gray for consistency
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            children: [
-                              const Icon(Icons.description, color: Colors.blue),
-                              const SizedBox(width: 10),
-                              Expanded(
-                                child: Text(
-                                  widget.property['description'] ??
-                                      'No description available',
-                                  style: const TextStyle(fontSize: 16),
-                                ),
-                              ),
-                            ],
+                          _buildPropertyDetailRow(
+                            icon: Icons.description,
+                            color: Colors.blue,
+                            label: widget.property['description'] ??
+                                'No description available',
                           ),
                           const SizedBox(height: 10),
-                          Row(
-                            children: [
-                              const Icon(Icons.monetization_on,
-                                  color: Colors.green),
-                              const SizedBox(width: 10),
-                              Text(
-                                '\$${widget.property['price'] ?? '0'}/month',
-                                style: const TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
-                              ),
-                            ],
+                          _buildPropertyDetailRow(
+                            icon: Icons.monetization_on,
+                            color: Colors.green,
+                            label: '\$${widget.property['price'] ?? '0'}/month',
                           ),
                           const SizedBox(height: 10),
-                          Row(
-                            children: [
-                              const Icon(Icons.person, color: Colors.orange),
-                              const SizedBox(width: 10),
-                              Text(
-                                'Owner: ${_ownerData?['name'] ?? 'Unknown'}',
-                                style: const TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
-                              ),
-                            ],
+                          _buildPropertyDetailRow(
+                            icon: Icons.person,
+                            color: Colors.orange,
+                            label: 'Owner: ${_ownerData?['name'] ?? 'Unknown'}',
                           ),
                         ],
                       ),
@@ -168,12 +153,35 @@ class _LessorPropertyDetailsPageState extends State<LessorPropertyDetailsPage> {
     );
   }
 
+  Widget _buildPropertyDetailRow({
+    required IconData icon,
+    required Color color,
+    required String label,
+  }) {
+    return Row(
+      children: [
+        Icon(icon, color: color),
+        const SizedBox(width: 10),
+        Expanded(
+          child: Text(
+            label,
+            style: const TextStyle(
+              fontSize: 16,
+              fontFamily: 'Hind',
+              color: Color(0xFF1A1E25),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _buildBottomNavBar() {
     return GNav(
-      backgroundColor: Colors.white,
-      color: Colors.black,
-      activeColor: Colors.lightBlueAccent,
-      tabBackgroundColor: Colors.grey.shade800,
+      backgroundColor: const Color(0xFF0A4DA0),
+      color: Colors.white70,
+      activeColor: Colors.white,
+      tabBackgroundColor: const Color(0xFF1976D2),
       iconSize: 24,
       padding: const EdgeInsets.fromLTRB(18, 18, 10, 18),
       gap: 8,

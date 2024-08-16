@@ -16,7 +16,11 @@ class YourPropertiesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Your Properties'),
+        title: const Text(
+          'Your Properties',
+          style: TextStyle(fontFamily: 'Hind'),
+        ),
+        backgroundColor: const Color(0xFF0A4DA0), // Consistent AppBar color
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
@@ -50,7 +54,8 @@ class YourPropertiesPage extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
                 ),
-                color: Colors.lightBlueAccent,
+                color:
+                    const Color(0xFFF5F5F5), // Light gray for card background
                 child: ListTile(
                   contentPadding: const EdgeInsets.all(15),
                   leading: property['images'] != null &&
@@ -73,10 +78,18 @@ class YourPropertiesPage extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
+                      fontFamily: 'Hind',
+                      color: Color(0xFF1A1E25),
                     ),
                   ),
                   subtitle: Text(
-                      '${property['location']} - \$${property['price']}/month'),
+                    '${property['location']} - \$${property['price']}/month',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'Hind',
+                      color: Color(0xFF7D7F88),
+                    ),
+                  ),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -93,10 +106,11 @@ class YourPropertiesPage extends StatelessWidget {
         },
       ),
       bottomNavigationBar: GNav(
-        backgroundColor: Colors.white,
-        color: Colors.black,
-        activeColor: Colors.lightBlueAccent,
-        tabBackgroundColor: Colors.grey.shade800,
+        backgroundColor:
+            const Color(0xFF0A4DA0), // Dark blue for nav background
+        color: Colors.white70,
+        activeColor: Colors.white,
+        tabBackgroundColor: const Color(0xFF1976D2),
         iconSize: 24,
         padding: const EdgeInsets.fromLTRB(18, 18, 10, 18),
         gap: 8,
