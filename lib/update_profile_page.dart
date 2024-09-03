@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'firestore_service.dart';
 import 'models/app_user.dart';
 import 'dart:io';
@@ -21,11 +22,19 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   File? _profileImage;
   bool _isLoading = false;
 
+  String? originalName;
+  String? originalBio;
+  String? originalProfileImageUrl;
+
   @override
   void initState() {
     super.initState();
     nameController = TextEditingController(text: widget.user.name);
     bioController = TextEditingController(text: widget.user.bio);
+
+    originalName = widget.user.name;
+    originalBio = widget.user.bio;
+    originalProfileImageUrl = widget.user.profileImageUrl;
   }
 
   @override
@@ -36,6 +45,14 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   }
 
   Future<void> _updateUserProfile() async {
+    // Check if any changes have been made
+    if (nameController.text == originalName &&
+        bioController.text == originalBio &&
+        _profileImage == null) {
+      _showToast("No changes detected.");
+      return;
+    }
+
     setState(() {
       _isLoading = true;
     });
@@ -79,6 +96,14 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         _profileImage = File(pickedFile.path);
       });
     }
+  }
+
+  void _showToast(String message) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+    );
   }
 
   @override

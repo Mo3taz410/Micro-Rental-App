@@ -72,7 +72,11 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
     if (_isLoading) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Property Details'),
+          title: const Text(
+            'Property Details',
+            style: TextStyle(fontFamily: 'Hind'),
+          ),
+          backgroundColor: const Color(0xFF0A4DA0),
         ),
         body: const Center(
           child: CircularProgressIndicator(),
@@ -83,17 +87,28 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
     if (owner == null) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Property Details'),
+          title: const Text(
+            'Property Details',
+            style: TextStyle(fontFamily: 'Hind'),
+          ),
+          backgroundColor: const Color(0xFF0A4DA0),
         ),
         body: const Center(
-          child: Text('Owner details are missing.'),
+          child: Text(
+            'Owner details are missing.',
+            style: TextStyle(fontFamily: 'Hind'),
+          ),
         ),
       );
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.property['name'] ?? 'Property Details'),
+        title: Text(
+          widget.property['name'] ?? 'Property Details',
+          style: const TextStyle(fontFamily: 'Hind'),
+        ),
+        backgroundColor: const Color(0xFF0A4DA0),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
@@ -110,33 +125,55 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Image.network(
-                        widget.property['images'][index],
-                        fit: BoxFit.cover,
-                        width: 300,
-                        errorBuilder: (context, error, stackTrace) {
-                          return const Icon(Icons.error);
-                        },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.network(
+                          widget.property['images'][index],
+                          fit: BoxFit.cover,
+                          width: 300,
+                          errorBuilder: (context, error, stackTrace) {
+                            return const Icon(Icons.error);
+                          },
+                        ),
                       ),
                     );
                   },
                 ),
               ),
             const SizedBox(height: 20),
-            ListTile(
-              title: Text('Owner: ${owner!.name}'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => UserProfilePage(user: owner!)),
-                );
-              },
+            Card(
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              color: const Color(0xFFF5F5F5),
+              child: ListTile(
+                contentPadding: const EdgeInsets.all(15),
+                title: Text(
+                  'Owner: ${owner!.name}',
+                  style: const TextStyle(
+                    fontFamily: 'Hind',
+                    fontSize: 16,
+                    color: Color(0xFF1A1E25),
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => UserProfilePage(user: owner!)),
+                  );
+                },
+              ),
             ),
             const SizedBox(height: 20),
             Text(
               widget.property['description'] ?? 'No description available',
-              style: const TextStyle(fontSize: 16),
+              style: const TextStyle(
+                fontSize: 16,
+                fontFamily: 'Hind',
+                color: Color(0xFF1A1E25),
+              ),
             ),
             const SizedBox(height: 20),
             Text(
@@ -144,6 +181,8 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
+                fontFamily: 'Hind',
+                color: Color(0xFF1A1E25),
               ),
             ),
             const SizedBox(height: 20),
@@ -163,14 +202,19 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
-                    backgroundColor: Colors.blue,
+                    backgroundColor: const Color(0xFF0D47A1),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                   child: const Padding(
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                    child: Text('Chat with Owner'),
+                    child: Text(
+                      'Chat with Owner',
+                      style: TextStyle(
+                        fontFamily: 'Hind',
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -183,10 +227,10 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
 
   Widget _buildBottomNavBar() {
     return GNav(
-      backgroundColor: Colors.white,
-      color: Colors.black,
-      activeColor: Colors.lightBlueAccent,
-      tabBackgroundColor: Colors.grey.shade800,
+      backgroundColor: const Color(0xFF0A4DA0), // Dark blue for nav background
+      color: Colors.white70,
+      activeColor: Colors.white,
+      tabBackgroundColor: const Color(0xFF1976D2),
       iconSize: 24,
       padding: const EdgeInsets.fromLTRB(18, 18, 10, 18),
       gap: 8,

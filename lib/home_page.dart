@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage>
                       style: TextStyle(
                         fontSize: 25,
                         fontStyle: FontStyle.italic,
-                        fontFamily: 'ABeeZee',
+                        fontFamily: 'Hind',
                         color: Colors.black.withOpacity(0.5),
                         shadows: [
                           Shadow(
@@ -119,7 +119,8 @@ class _HomePageState extends State<HomePage>
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.grey,
+                        fontFamily: 'Hind',
+                        color: Color(0xFF7D7F88),
                       ),
                     ),
                   ),
@@ -129,7 +130,8 @@ class _HomePageState extends State<HomePage>
                       'You are one step away.',
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.grey,
+                        fontFamily: 'Hind',
+                        color: Color(0xFF7D7F88),
                       ),
                     ),
                   ),
@@ -144,7 +146,7 @@ class _HomePageState extends State<HomePage>
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF315EE7),
+                        backgroundColor: const Color(0xFF0A4DA0),
                         foregroundColor: Colors.white,
                         padding: const EdgeInsets.symmetric(
                             vertical: 15, horizontal: 20),
@@ -159,7 +161,7 @@ class _HomePageState extends State<HomePage>
                           'Get started',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontFamily: 'Hind',
+                            fontFamily: 'Hind Jalandhar',
                             fontSize: 24,
                           ),
                         ),

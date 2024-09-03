@@ -219,9 +219,10 @@ class _SignUpPageState extends State<SignUpPage> {
                               TextFormField(
                                 controller: nameController,
                                 keyboardType: TextInputType.name,
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
                                   labelText: 'Name',
-                                  border: OutlineInputBorder(),
+                                  border: const OutlineInputBorder(),
+                                  prefixIcon: const Icon(Icons.person_outline),
                                 ),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
@@ -239,9 +240,10 @@ class _SignUpPageState extends State<SignUpPage> {
                                 controller: emailController,
                                 readOnly: true,
                                 keyboardType: TextInputType.emailAddress,
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
                                   labelText: 'Email',
-                                  border: OutlineInputBorder(),
+                                  border: const OutlineInputBorder(),
+                                  prefixIcon: const Icon(Icons.email_outlined),
                                 ),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
@@ -264,6 +266,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 decoration: InputDecoration(
                                   labelText: 'Password',
                                   border: const OutlineInputBorder(),
+                                  prefixIcon: const Icon(Icons.lock_outline),
                                   suffixIcon: IconButton(
                                     icon: Icon(
                                       _passwordVisible
@@ -296,6 +299,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 decoration: InputDecoration(
                                   labelText: 'Confirm Password',
                                   border: const OutlineInputBorder(),
+                                  prefixIcon: const Icon(Icons.lock_outline),
                                   suffixIcon: IconButton(
                                     icon: Icon(
                                       _confirmPasswordVisible
@@ -331,6 +335,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 decoration: const InputDecoration(
                                   labelText: 'Bio',
                                   border: OutlineInputBorder(),
+                                  prefixIcon: Icon(Icons.info_outline),
                                 ),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
